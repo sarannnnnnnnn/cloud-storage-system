@@ -1,16 +1,23 @@
 from fastapi import FastAPI
-from app.database.database import engine, Base
+from app.models.file import File
 from app.models.user import User
 from app.config.logger import logger
+from app.database.database import engine, Base
+from app.routes.auth import router as auth_router
 from app.config.settings import APP_NAME, APP_VERSION, DEBUG
 
 Base.metadata.create_all(bind=engine)
-app = FastAPI (
+
+app = FastAPI(
     title=APP_NAME,
     version=APP_VERSION,
     debug=DEBUG
 )
+
+app.include_router(auth_router)
+
 logger.info("Cloud Storage API Started Successfully")
+
 
 @app.get("/health")
 def health():
