@@ -14,8 +14,31 @@ security = HTTPBearer()
 
 @router.post("/register")
 def register(user: UserCreate, db: Session = Depends(get_db)):
+
+    # Check username
+    existing_username = db.query(User).filter(
+        User.username == user.username
+    ).first()
+
+    if existing_username:
+        return {
+            "message": "Username already exists"
+        }
+
+    # Check email
+    existing_email = db.query(User).filter(
+        User.email == user.email
+    ).first()
+
+    if existing_email:
+        return {
+            "message": "Email already exists"
+        }
+
+    # Hash password
     hashed_password = hash_password(user.password)
 
+    # Create user
     new_user = User(
         username=user.username,
         email=user.email,
@@ -29,7 +52,6 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     return {
         "message": "User registered successfully"
     }
-
 
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):

@@ -6,6 +6,7 @@ class File(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     filename = Column(String(250), nullable=False)
+    stored_filename = Column(String(300), unique=True, nullable=False)
     file_url = Column(String(500), nullable=False)
     file_size = Column(Integer)
     user_id = Column(Integer, ForeignKey("users.id"))
