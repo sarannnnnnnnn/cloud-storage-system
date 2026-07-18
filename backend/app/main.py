@@ -6,6 +6,7 @@ from app.database.database import engine, Base
 from app.routes.file import router as file_router
 from app.routes.auth import router as auth_router
 from app.config.settings import APP_NAME, APP_VERSION, DEBUG
+from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
 
@@ -13,6 +14,15 @@ app = FastAPI(
     title=APP_NAME,
     version=APP_VERSION,
     debug=DEBUG
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(auth_router)

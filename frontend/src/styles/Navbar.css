@@ -1,0 +1,129 @@
+.navbar {
+  position: sticky;
+  top: 20px;
+
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+
+  padding: 18px 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  border-radius: 18px;
+
+  z-index: 1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:26px;
+    font-weight:700;
+}
+
+.cloud-icon{
+    color:#3B82F6;
+}
+
+.logo span{
+
+background:linear-gradient(
+90deg,
+#3B82F6,
+#8B5CF6
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.nav-links{
+
+display:flex;
+gap:40px;
+
+list-style:none;
+
+font-size:17px;
+
+}
+
+.nav-links a{
+
+transition:.3s;
+
+}
+
+.nav-links a:hover{
+
+color:#3B82F6;
+
+}
+
+.nav-buttons{
+
+display:flex;
+
+gap:15px;
+
+}
+
+.login-btn{
+
+padding:10px 22px;
+
+background:transparent;
+
+border:1px solid #3B82F6;
+
+color:white;
+
+border-radius:12px;
+
+transition:.3s;
+
+}
+
+.login-btn:hover{
+
+background:#3B82F6;
+
+}
+
+.register-btn{
+
+padding:10px 22px;
+
+background:linear-gradient(
+90deg,
+#3B82F6,
+#8B5CF6
+);
+
+color:white;
+
+border-radius:12px;
+
+transition:.3s;
+
+}
+
+.register-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 10px 20px rgba(59,130,246,.4);
+
+}
