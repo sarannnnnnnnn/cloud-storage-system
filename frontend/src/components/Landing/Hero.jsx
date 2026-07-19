@@ -1,69 +1,98 @@
 import { motion } from "framer-motion";
-import "../../styles/Hero.css";
+import { FaCloudUploadAlt, FaShieldAlt, FaDatabase } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
+import "../../styles/landing/Hero.css";
 
 function Hero() {
+  const navigate = useNavigate();
+
   return (
-    <section id="home" className="hero">
+    <section className="landing-hero" id="hero">
 
-      <div className="hero-left">
-
-        <motion.h1
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Store Your Files
-          <br />
-          Securely In The Cloud
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          Upload, organize and access your files anywhere
-          using AWS S3 powered cloud storage.
-        </motion.p>
-
-        <motion.div
-          className="hero-buttons"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <button className="primary-btn">
-            Get Started
-          </button>
-
-        </motion.div>
-
-      </div>
+      <div className="landing-hero-glow1"></div>
+      <div className="landing-hero-glow2"></div>
 
       <motion.div
-        className="hero-right"
-        initial={{ opacity: 0, x: 80 }}
+        className="landing-hero-left"
+        initial={{ opacity: 0, x: -80 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8 }}
       >
 
-        <div className="dashboard-card">
+        <h1>
+
+          Store Your Files
+
+          <span> Securely.</span>
+
+          <br />
+
+          Access Them Anywhere.
+
+        </h1>
+
+        <p>
+
+          A secure cloud storage platform powered by AWS S3.
+          Upload, manage and access your files with enterprise-grade
+          security and lightning-fast performance.
+
+        </p>
+
+        <div className="landing-hero-buttons">
+
+          <button
+  className="landing-primary-btn"
+  onClick={() => navigate("/register")}
+>
+  Get Started
+</button>
+
+        </div>
+
+      </motion.div>
+
+      <motion.div
+        className="landing-hero-right"
+        initial={{ opacity: 0, x: 80 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+
+        <div className="landing-dashboard-card">
 
           <h2>Cloud Dashboard</h2>
 
-          <div className="storage-bar">
-            <div className="storage-fill"></div>
+          <div className="landing-storage">
+
+            <div className="landing-storage-fill"></div>
+
           </div>
 
-          <p>4.2 GB of 10 GB Used</p>
+          <p>4.3 GB / 10 GB Used</p>
 
-          <div className="fake-files">
+          <div className="landing-file">
 
-            <div className="file">📄 Resume.pdf</div>
+            <FaCloudUploadAlt />
 
-            <div className="file">🖼 Photo.png</div>
+            Resume.pdf
 
-            <div className="file">🎥 Video.mp4</div>
+          </div>
+
+          <div className="landing-file">
+
+            <FaShieldAlt />
+
+            Project.zip
+
+          </div>
+
+          <div className="landing-file">
+
+            <FaDatabase />
+
+            Database.sql
 
           </div>
 

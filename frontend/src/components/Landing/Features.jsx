@@ -1,55 +1,80 @@
-import "../../styles/Features.css";
-
+import { motion } from "framer-motion";
 import {
   FaCloudUploadAlt,
-  FaShieldAlt,
-  FaShareAlt,
+  FaLock,
   FaMobileAlt,
+  FaBolt,
 } from "react-icons/fa";
 
+import "../../styles/landing/Features.css";
+
+const features = [
+  {
+    icon: <FaCloudUploadAlt />,
+    title: "Fast Upload",
+    desc: "Upload files securely with AWS S3 in seconds."
+  },
+  {
+    icon: <FaLock />,
+    title: "Secure Storage",
+    desc: "JWT authentication and encrypted cloud storage."
+  },
+  {
+    icon: <FaMobileAlt />,
+    title: "Access Anywhere",
+    desc: "Access your files anytime from any device."
+  },
+  {
+    icon: <FaBolt />,
+    title: "Lightning Fast",
+    desc: "Optimized APIs and blazing fast performance."
+  }
+];
+
 function Features() {
-  const features = [
-    {
-      icon: <FaCloudUploadAlt />,
-      title: "Fast Upload",
-      desc: "Upload files securely with high-speed cloud storage.",
-    },
-    {
-      icon: <FaShieldAlt />,
-      title: "Secure Storage",
-      desc: "JWT Authentication and AWS S3 protected storage.",
-    },
-    {
-      icon: <FaShareAlt />,
-      title: "Easy Sharing",
-      desc: "Generate secure shareable links instantly.",
-    },
-    {
-      icon: <FaMobileAlt />,
-      title: "Access Anywhere",
-      desc: "Works perfectly on Desktop, Tablet and Mobile.",
-    },
-  ];
-
   return (
-    <section id="features" className="features">
-      <h2>Why Choose Cloud Storage System?</h2>
+    <section className="landing-features" id="features">
 
-      <p className="feature-subtitle">
-        Powerful cloud storage with enterprise-grade security.
+      <motion.h2
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: .7 }}
+        viewport={{ once: true }}
+      >
+        Powerful Features
+      </motion.h2>
+        
+      <p className="landing-features-subtitle">
+        Everything you need for secure cloud storage.
       </p>
 
-      <div className="feature-grid">
-        {features.map((feature, index) => (
-          <div className="feature-card" key={index}>
-            <div className="feature-icon">{feature.icon}</div>
+      <div className="landing-features-grid">
 
-            <h3>{feature.title}</h3>
+        {features.map((item, index) => (
 
-            <p>{feature.desc}</p>
-          </div>
+          <motion.div
+            key={index}
+            className="landing-feature-card"
+            initial={{ opacity: 0, y: 70 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: .6, delay: index * .15 }}
+            viewport={{ once: true }}
+          >
+
+            <div className="landing-feature-icon">
+              {item.icon}
+            </div>
+
+            <h3>{item.title}</h3>
+
+            <p>{item.desc}</p>
+
+          </motion.div>
+
         ))}
+
       </div>
+
     </section>
   );
 }

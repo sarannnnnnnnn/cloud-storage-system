@@ -1,7 +1,9 @@
+/* Google Font */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 html {
@@ -9,33 +11,76 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background: #0f172a;
+  min-height: 100vh;
+  background: #020617;
   color: #ffffff;
   overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  transition: 0.3s ease;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
 button {
-  font-family: inherit;
   cursor: pointer;
   border: none;
   outline: none;
+  background: none;
+}
+
+input,
+textarea {
+  outline: none;
+  border: none;
 }
 
 img {
-  max-width: 100%;
   display: block;
+  max-width: 100%;
+  user-select: none;
 }
 
-ul {
+ul,
+ol {
   list-style: none;
 }
 
-html {
-  scroll-behavior: smooth;
+::selection {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8;
 }

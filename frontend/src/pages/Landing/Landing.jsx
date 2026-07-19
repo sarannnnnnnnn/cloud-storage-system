@@ -1,4 +1,4 @@
-import Navbar from "../../components/layout/Navbar";
+import Navbar from "../../components/Landing/Navbar";
 import Hero from "../../components/Landing/Hero";
 import Features from "../../components/Landing/Features";
 import Preview from "../../components/Landing/Preview";

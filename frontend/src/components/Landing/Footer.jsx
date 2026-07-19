@@ -1,131 +1,108 @@
-import "../../styles/Footer.css";
 import {
   FaCloud,
   FaGithub,
   FaLinkedin,
-  FaPhoneAlt,
   FaEnvelope,
-
+  FaPhoneAlt,
 } from "react-icons/fa";
+
+import "../../styles/landing/Footer.css";
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="landing-footer">
 
-      <div className="footer-container">
+      <div className="footer-top">
 
-        {/* Logo */}
+        {/* Brand */}
 
-        <div className="footer-section">
-          <h2 className="footer-logo">
+        <div className="footer-brand">
+
+          <div className="footer-logo">
             <FaCloud />
-            Cloud Storage System
-          </h2>
+          </div>
+
+          <h2>Cloud Storage</h2>
 
           <p>
-            Securely upload, manage and access your files anywhere using
-            React, FastAPI, PostgreSQL and AWS S3.
+            Securely upload, manage and access your files from
+            anywhere using FastAPI, PostgreSQL and AWS S3.
           </p>
+
         </div>
 
-        {/* Quick Links */}
+        {/* Built With */}
 
-        <div className="footer-section">
-          <h3>Quick Links</h3>
+        <div className="footer-tech">
 
-          <ul>
+          <h3>Built With</h3>
 
-            <li
-              onClick={() =>
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                })
-              }
-            >
-              Home
-            </li>
+          <div className="tech-item">
+            <span>⚛</span>
+            <p>React + Vite</p>
+          </div>
 
-            <li
-              onClick={() =>
-                document.getElementById("features").scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-            >
-              Features
-            </li>
+          <div className="tech-item">
+            <span>⚡</span>
+            <p>FastAPI</p>
+          </div>
 
-            <li
-              onClick={() =>
-                document.getElementById("preview").scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-            >
-              Preview
-            </li>
+          <div className="tech-item">
+            <span>☁</span>
+            <p>AWS S3</p>
+          </div>
 
-            <li
-              onClick={() =>
-                document.getElementById("about").scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-            >
-              About
-            </li>
+          <div className="tech-item">
+            <span>🐘</span>
+            <p>PostgreSQL</p>
+          </div>
 
-          </ul>
+          <div className="tech-item">
+            <span>🔐</span>
+            <p>JWT Authentication</p>
+          </div>
 
         </div>
 
         {/* Contact */}
 
-        <div className="footer-section">
+        <div className="footer-contact">
 
           <h3>Contact</h3>
 
           <p>
-            <FaPhoneAlt />
-            +91 9597428933
+            <FaEnvelope />
+            saran16062007@gmail.com
           </p>
+          <p>
+    <FaPhoneAlt />
+    +91 95974 28933
+  </p>
 
-          <p>📍 Coimbatore, India</p>
+          <div className="footer-social">
+
+            <a href="https://github.com/sarannnnnnnnn/"
+            target="_blank" rel="noopener noreferrer">
+              <FaGithub />
+            </a>
+
+            <a href="https://www.linkedin.com/in/sarannnn"
+            target="_blank" rel="noopener noreferrer">
+              <FaLinkedin />
+            </a>
+
+          </div>
 
         </div>
 
       </div>
 
-      {/* Social */}
-
-      <div className="footer-social">
-
-        <a href="https://github.com/sarannnnnnnnn/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaGithub />
-        </a>
-
-        <a href="https://www.linkedin.com/in/sarannnn/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaLinkedin />
-        </a>
-
-        <a href="mailto:saran16062007@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaEnvelope />
-        </a>
-
-      </div>
-
       <div className="footer-bottom">
-        A Cloud Storage System | Designed & Developed by Saran
+
+        <p>
+          A Cloud Storage System | Developed & Designed by Saran
+        </p>
+
       </div>
 
     </footer>

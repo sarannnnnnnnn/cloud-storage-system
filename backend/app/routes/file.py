@@ -1,6 +1,13 @@
 import os
 import uuid
-from fastapi import APIRouter, UploadFile, File, Depends
+from fastapi import (
+    APIRouter,
+    UploadFile,
+    File,
+    Depends,
+    HTTPException,
+    status,
+)
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
@@ -37,9 +44,10 @@ async def upload(
     payload = verify_access_token(token)
 
     if payload is None:
-        return {
-            "message": "Invalid Token"
-        }
+        raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid Token"
+    )
 
     # Get logged-in user's email
     email = payload["sub"]
@@ -50,9 +58,10 @@ async def upload(
     ).first()
 
     if db_user is None:
-        return {
-            "message": "User not found"
-        }
+        raise HTTPException(
+        status_code=status.HTTP_404_NOT_FOUND,
+        detail="User not found"
+    )
     
     # Check if the logged-in user already has a file with the same name
     existing_file = db.query(FileModel).filter(
@@ -61,9 +70,10 @@ async def upload(
     ).first()
 
     if existing_file:
-        return {
-            "message": "File already exists"
-        }
+        raise HTTPException(
+        status_code=status.HTTP_409_CONFLICT,
+        detail="File already exists"
+    )
 
     # Save uploaded file temporarily
     file_path = f"temp_{file.filename}"
@@ -81,9 +91,10 @@ async def upload(
     if db_user.storage_used + file_size > db_user.storage_limit:
         os.remove(file_path)
 
-        return {
-            "message": "Storage limit exceeded (5 GB)"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Storage limit exceeded (5 GB)"
+        )
 
     # Upload to AWS S3
     file_url = upload_file(file_path, stored_filename)
@@ -134,7 +145,7 @@ async def download(
     if payload is None:
         return {
             "message": "Invalid Token"
-        }
+        }   
 
     # Get logged-in user's email
     email = payload["sub"]

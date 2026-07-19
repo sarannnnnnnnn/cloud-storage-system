@@ -1,93 +1,144 @@
-import "../../styles/About.css";
+import { motion } from "framer-motion";
 import {
-  FaLightbulb,
-  FaPalette,
-  FaCode,
-  FaCloud,
-  FaRocket,
+  FaCloudUploadAlt,
+  FaLock,
+  FaAws,
+  FaLaptop
 } from "react-icons/fa";
 
+import "../../styles/landing/About.css";
+
 function About() {
+
+  const steps = [
+
+    {
+      icon: <FaCloudUploadAlt />,
+      title: "Upload",
+      desc: "Choose Files"
+    },
+
+    {
+      icon: <FaLock />,
+      title: "Encrypt",
+      desc: "Secure Transfer"
+    },
+
+    {
+      icon: <FaAws />,
+      title: "AWS S3",
+      desc: "Cloud Storage"
+    },
+
+    {
+      icon: <FaLaptop />,
+      title: "Access",
+      desc: "Anywhere"
+    }
+
+  ];
+
   return (
-    <section id="about" className="about">
 
-      {/* Floating Background */}
-      <div className="blob blob1"></div>
-      <div className="blob blob2"></div>
+    <section className="journey" id="about">
 
-      <div className="about-container">
+      <motion.div
 
-        <div className="about-header">
-          <span className="about-tag">ABOUT US</span>
+        initial={{ opacity:0,y:50 }}
 
-          <h2>
-            Cloud Storage System
-            <br />
-            Built by Saran
-          </h2>
+        whileInView={{ opacity:1,y:0 }}
 
-          <p>
-            Cloud Storage System is a secure and user-friendly platform designed
-            to store, manage and access files anytime, anywhere. Built using
-            modern cloud technologies, it delivers reliability, security and a
-            seamless experience across every device.
-          </p>
-        </div>
+        transition={{ duration:.8 }}
 
-        {/* Timeline */}
+        viewport={{ once:true }}
 
-        {/* Timeline */}
+      >
 
-<div className="timeline">
+        <h2>
 
-  <div className="timeline-line"></div>
+          From Upload To Secure Access
 
-  <div className="timeline-item">
-    <div className="timeline-circle">
-      <FaLightbulb />
-    </div>
-    <h4>Idea</h4>
-    <p>Planned the Cloud Storage System and its core features.</p>
-  </div>
+        </h2>
 
-  <div className="timeline-item">
-    <div className="timeline-circle">
-      <FaCode />
-    </div>
-    <h4>Development</h4>
-    <p>Built the backend using FastAPI, JWT and PostgreSQL.</p>
-  </div>
+        <p>
 
-  <div className="timeline-item">
-    <div className="timeline-circle">
-      <FaCloud />
-    </div>
-    <h4>AWS Cloud</h4>
-    <p>Integrated Amazon S3 for secure cloud file storage.</p>
-  </div>
+          Every file travels through a secure pipeline before
+          becoming available anywhere in the world.
 
-  <div className="timeline-item">
-    <div className="timeline-circle">
-      <FaPalette />
-    </div>
-    <h4>Frontend</h4>
-    <p>Created a responsive UI using React and modern design.</p>
-  </div>
+        </p>
 
-  <div className="timeline-item">
-    <div className="timeline-circle">
-      <FaRocket />
-    </div>
-    <h4>Launch</h4>
-    <p>Ready for deployment and real-world users.</p>
-  </div>
+      </motion.div>
 
-</div>
+      <div className="journey-flow">
+
+        {steps.map((step,index)=>(
+
+          <>
+
+            <motion.div
+
+              className="journey-card"
+
+              key={index}
+
+              initial={{ opacity:0,y:40 }}
+
+              whileInView={{ opacity:1,y:0 }}
+
+              transition={{
+                delay:index*.25
+              }}
+
+              viewport={{ once:true }}
+
+            >
+
+              <div className="journey-icon">
+
+                {step.icon}
+
+              </div>
+
+              <h3>{step.title}</h3>
+
+              <span>{step.desc}</span>
+
+            </motion.div>
+
+            {index!==steps.length-1 &&
+
+            <motion.div
+
+              className="journey-arrow"
+
+              initial={{ opacity:0 }}
+
+              whileInView={{ opacity:1 }}
+
+              transition={{
+                delay:index*.25+.2
+              }}
+
+              viewport={{ once:true }}
+
+            >
+
+              ➜
+
+            </motion.div>
+
+            }
+
+          </>
+
+        ))}
 
       </div>
 
     </section>
+
   );
+
 }
 
 export default About;

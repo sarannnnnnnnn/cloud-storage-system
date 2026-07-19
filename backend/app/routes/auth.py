@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 
@@ -12,28 +12,37 @@ router = APIRouter()
 security = HTTPBearer()
 
 
+# ==========================
+# Register
+# ==========================
 @router.post("/register")
 def register(user: UserCreate, db: Session = Depends(get_db)):
 
     # Check username
-    existing_username = db.query(User).filter(
-        User.username == user.username
-    ).first()
+    existing_username = (
+        db.query(User)
+        .filter(User.username == user.username)
+        .first()
+    )
 
     if existing_username:
-        return {
-            "message": "Username already exists"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already exists"
+        )
 
     # Check email
-    existing_email = db.query(User).filter(
-        User.email == user.email
-    ).first()
+    existing_email = (
+        db.query(User)
+        .filter(User.email == user.email)
+        .first()
+    )
 
     if existing_email:
-        return {
-            "message": "Email already exists"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already exists"
+        )
 
     # Hash password
     hashed_password = hash_password(user.password)
@@ -53,47 +62,62 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
         "message": "User registered successfully"
     }
 
+
+# ==========================
+# Login
+# ==========================
 @router.post("/login")
 def login(user: UserLogin, db: Session = Depends(get_db)):
 
     # Search user by email
-    db_user = db.query(User).filter(User.email == user.email).first()
+    db_user = (
+        db.query(User)
+        .filter(User.email == user.email)
+        .first()
+    )
 
     # Email not found
     if not db_user:
-        return {
-            "message": "Invalid email or password"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
 
-    # Password is incorrect
+    # Password incorrect
     if not verify_password(user.password, db_user.password):
-        return {
-            "message": "Invalid email or password"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
 
-    # Create JWT Token
+    # Create JWT
     access_token = create_access_token(
         data={"sub": db_user.email}
     )
 
-    # Return JWT Token
     return {
         "access_token": access_token,
         "token_type": "bearer"
     }
 
 
+# ==========================
+# Profile (Protected Route)
+# ==========================
 @router.get("/profile")
-def profile(credentials: HTTPAuthorizationCredentials = Depends(security)):
+def profile(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
 
     token = credentials.credentials
 
     payload = verify_access_token(token)
 
     if payload is None:
-        return {
-            "message": "Invalid Token"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
 
     return {
         "message": "Protected Route",

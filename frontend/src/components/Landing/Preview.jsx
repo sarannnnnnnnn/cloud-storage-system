@@ -1,90 +1,96 @@
-import "../../styles/Preview.css";
 import { motion } from "framer-motion";
 import {
-  FaFolder,
   FaFilePdf,
   FaImage,
   FaVideo,
-  FaSearch,
+  FaFolder,
+  FaCloudUploadAlt,
 } from "react-icons/fa";
 
+import "../../styles/landing/Preview.css";
+import { useNavigate } from "react-router-dom";
+
 function Preview() {
+  const navigate = useNavigate();
   return (
-    <section id="preview" className="preview">
+    <section className="landing-preview" id="preview">
 
       <motion.div
-        className="preview-left"
-        initial={{ opacity: 0, x: -80 }}
+        className="landing-preview-left"
+        initial={{ opacity: 0, x: -70 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
       >
 
+        <span className="landing-preview-tag">
+          Dashboard Preview
+        </span>
+
         <h2>
-          Experience Cloud Storage
-          Like Never Before
+          Beautiful Dashboard
+          <span> Designed For Productivity.</span>
         </h2>
 
         <p>
-          Manage folders, upload files, preview documents,
-          search instantly and organize everything in one place.
+          Organize files, upload instantly, monitor storage,
+          and manage everything from one modern dashboard.
         </p>
 
+        <button className="landing-primary-btn"
+      onClick={() => navigate("/login")}>
+          <FaCloudUploadAlt />
+          Start Uploading
+        </button>
 
       </motion.div>
 
       <motion.div
-        className="preview-right"
-        initial={{ opacity: 0, x: 80 }}
+        className="landing-preview-right"
+        initial={{ opacity: 0, x: 70 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
       >
 
-        <div className="dashboard-preview">
+        <div className="landing-preview-card">
 
-          <div className="dashboard-top">
+          <div className="landing-preview-top">
 
-            <FaSearch />
+            <h3>Cloud Storage</h3>
 
-            <input
-              type="text"
-              placeholder="Search files..."
-              disabled
-            />
+            <span>10 GB</span>
 
           </div>
 
-          <div className="dashboard-files">
+          <div className="landing-preview-storage">
 
-            <div className="dashboard-file">
+            <div className="landing-preview-fill"></div>
 
-              <FaFolder />
+          </div>
 
-              <span>Projects</span>
+          <p>6.9 GB Used</p>
 
-            </div>
+          <div className="landing-preview-files">
 
-            <div className="dashboard-file">
-
+            <div className="landing-preview-file">
               <FaFilePdf />
-
-              <span>Resume.pdf</span>
-
+              Resume.pdf
             </div>
 
-            <div className="dashboard-file">
-
+            <div className="landing-preview-file">
               <FaImage />
-
-              <span>Vacation.png</span>
-
+              Vacation.png
             </div>
 
-            <div className="dashboard-file">
-
+            <div className="landing-preview-file">
               <FaVideo />
+              Demo.mp4
+            </div>
 
-              <span>Presentation.mp4</span>
-
+            <div className="landing-preview-file">
+              <FaFolder />
+              Projects
             </div>
 
           </div>
