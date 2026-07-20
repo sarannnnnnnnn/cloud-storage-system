@@ -1,0 +1,381 @@
+/* ===========================
+   PREMIUM TOPBAR
+=========================== */
+
+.topbar {
+    width: 100%;
+    min-height: 90px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 32px;
+
+    background: rgba(18, 24, 45, 0.55);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+    margin-bottom: 30px;
+}
+
+/* ===========================
+   LEFT
+=========================== */
+
+.topbar-left{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.page-title{
+
+    font-size:30px;
+    font-weight:700;
+
+    color:#ffffff;
+
+    letter-spacing:.4px;
+}
+
+.page-subtitle{
+
+    color:#98a2b3;
+
+    font-size:14px;
+
+    font-weight:500;
+}
+
+/* ===========================
+   RIGHT
+=========================== */
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+/* ===========================
+   SEARCH
+=========================== */
+
+.search-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    width:340px;
+
+    height:52px;
+
+    padding:0 18px;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.search-box:hover{
+
+    border-color:#4f7cff;
+
+    box-shadow:
+    0 0 18px rgba(79,124,255,.25);
+}
+
+.search-icon{
+
+    color:#7c8db5;
+
+    font-size:19px;
+}
+
+.search-box input{
+
+    flex:1;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+    font-size:15px;
+}
+
+.search-box input::placeholder{
+
+    color:#8f9bb8;
+}
+
+/* ===========================
+   UPLOAD BUTTON
+=========================== */
+
+.upload-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:14px 24px;
+
+    border:none;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-weight:600;
+
+    font-size:15px;
+
+    border-radius:15px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    transition:.35s;
+
+    box-shadow:
+    0 12px 30px rgba(37,99,235,.35);
+}
+
+.upload-btn:hover{
+
+    box-shadow:
+
+    0 15px 35px rgba(37,99,235,.5);
+
+    filter:brightness(1.05);
+}
+
+/* ===========================
+   ICON BUTTON
+=========================== */
+
+.icon-btn{
+
+    width:52px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    cursor:pointer;
+
+    color:white;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.icon-btn:hover{
+
+    border-color:#4f7cff;
+
+    box-shadow:
+
+    0 0 20px rgba(37,99,235,.25);
+}
+
+.icon-btn svg{
+
+    font-size:22px;
+}
+
+/* Notification */
+
+.notification-dot{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    background:#ff4d6d;
+
+    box-shadow:
+
+    0 0 10px #ff4d6d;
+}
+
+/* ===========================
+   PROFILE
+=========================== */
+
+.profile-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:10px 16px;
+
+    cursor:pointer;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.profile-box:hover{
+
+    border-color:#4f7cff;
+
+    box-shadow:
+
+    0 0 20px rgba(37,99,235,.25);
+}
+
+.profile-box img{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid rgba(255,255,255,.15);
+}
+
+.profile-info{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.profile-info h4{
+
+    color:white;
+
+    font-size:15px;
+
+    margin:0;
+
+    font-weight:600;
+}
+
+.profile-info span{
+
+    color:#98a2b3;
+
+    font-size:13px;
+}
+
+.dropdown-icon{
+
+    color:#98a2b3;
+
+    font-size:18px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:1200px){
+
+    .search-box{
+
+        width:250px;
+    }
+}
+
+@media(max-width:992px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        gap:20px;
+
+        align-items:flex-start;
+    }
+
+    .topbar-right{
+
+        width:100%;
+
+        flex-wrap:wrap;
+    }
+
+    .search-box{
+
+        width:100%;
+    }
+}
+
+@media(max-width:600px){
+
+    .upload-btn{
+
+        width:100%;
+    }
+
+    .profile-box{
+
+        width:100%;
+
+        justify-content:center;
+    }
+}

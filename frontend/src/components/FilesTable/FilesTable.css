@@ -1,0 +1,287 @@
+/* ===========================
+   FILES TABLE
+=========================== */
+
+.files-table{
+    margin-top:30px;
+    padding:28px;
+    border-radius:22px;
+
+    background:rgba(18,24,45,.55);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,.35);
+
+    overflow:hidden;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.table-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+    gap:20px;
+}
+
+.table-header h2{
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+}
+
+/* ===========================
+   SEARCH
+=========================== */
+
+.search-box-table{
+
+    width:320px;
+
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 18px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.search-box-table:hover{
+
+    border-color:#3b82f6;
+}
+
+.search-box-table svg{
+
+    color:#9ca3af;
+
+    font-size:18px;
+}
+
+.search-box-table input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:15px;
+}
+
+.search-box-table input::placeholder{
+
+    color:#94a3b8;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+thead{
+
+    background:rgba(255,255,255,.04);
+}
+
+th{
+
+    padding:18px;
+
+    text-align:left;
+
+    color:#9ca3af;
+
+    font-weight:600;
+
+    font-size:14px;
+}
+
+td{
+
+    padding:18px;
+
+    color:white;
+
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+tbody tr{
+
+    transition:.25s;
+}
+
+tbody tr:hover{
+
+    background:rgba(255,255,255,.04);
+}
+
+/* ===========================
+   FILE NAME
+=========================== */
+
+.file-name{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-weight:500;
+}
+
+.file-icon{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    font-size:18px;
+}
+
+/* ===========================
+   ACTION BUTTONS
+=========================== */
+
+.download-btn,
+.delete-btn{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:12px;
+
+    color:white;
+
+    margin-right:10px;
+
+    transition:.3s;
+}
+
+.download-btn{
+
+    background:#2563eb;
+}
+
+.download-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(37,99,235,.35);
+}
+
+.delete-btn{
+
+    background:#ef4444;
+}
+
+.delete-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(239,68,68,.35);
+}
+
+/* ===========================
+   EMPTY
+=========================== */
+
+.empty{
+
+    padding:50px;
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:16px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+    .table-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .search-box-table{
+
+        width:100%;
+    }
+
+    .files-table{
+
+        overflow-x:auto;
+    }
+
+    table{
+
+        min-width:700px;
+    }
+}

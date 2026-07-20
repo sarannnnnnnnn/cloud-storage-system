@@ -74,7 +74,9 @@ async def upload(
         status_code=status.HTTP_409_CONFLICT,
         detail="File already exists"
     )
+    import os
 
+    os.makedirs("temp_screenshots", exist_ok=True)
     # Save uploaded file temporarily
     file_path = f"temp_{file.filename}"
 
@@ -129,7 +131,7 @@ async def upload(
 # -------------------------------
 # Download File
 # -------------------------------
-@router.get("/download/{file_name}")
+@router.get("/download/{file_name:path}")
 async def download(
     file_name: str,
     credentials: HTTPAuthorizationCredentials = Depends(security),
@@ -218,7 +220,7 @@ async def get_files(
 # -------------------------------
 # Delete File
 # -------------------------------
-@router.delete("/delete/{file_name}")
+@router.delete("/delete/{file_name:path}")
 async def delete(
     file_name: str,
     credentials: HTTPAuthorizationCredentials = Depends(security),

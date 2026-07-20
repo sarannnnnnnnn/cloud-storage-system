@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import Landing from "./pages/Landing/Landing";
 import Login from "./pages/Login/Login";
@@ -24,7 +27,20 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
+
       <AnimatedRoutes />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="dark"
+      />
+
     </BrowserRouter>
   );
 }
