@@ -1,0 +1,284 @@
+.files-table {
+  margin-top: 30px;
+  padding: 28px;
+  border-radius: 22px;
+  background: rgba(18, 24, 45, 0.55);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  overflow: visible;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+}
+
+.table-header h2 {
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.search-box-table {
+  width: 320px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.search-box-table svg {
+  color: #9ca3af;
+}
+
+.search-box-table input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.search-box-table input::placeholder {
+  color: #94a3b8;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: rgba(255,255,255,.04);
+}
+
+th {
+  padding: 18px;
+  text-align: left;
+  color: #9ca3af;
+}
+
+td {
+  padding: 18px;
+  color: white;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+tbody tr:hover {
+  background: rgba(255,255,255,.04);
+}
+
+.file-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#2563eb,#7c3aed);
+  color: white;
+}
+
+.download-btn,
+.delete-btn {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  margin-right: 10px;
+  transition: .3s;
+}
+
+.download-btn {
+  background: #10b981;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(16,185,129,.35);
+}
+
+.delete-btn {
+  background: #ef4444;
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(239,68,68,.35);
+}
+
+.empty {
+  padding: 60px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+@media (max-width:900px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-box-table {
+    width: 100%;
+  }
+
+  .files-table {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 700px;
+  }
+}
+
+/* ==========================
+   CONFIRM MODAL
+========================== */
+
+.confirm-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(8px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+.confirm-modal{
+
+    width:420px;
+
+    background:#131a2d;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    animation:popup .25s ease;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+}
+
+.confirm-modal h2{
+
+    color:#fff;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+}
+
+.confirm-modal p{
+
+    color:#94a3b8;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
+}
+
+.confirm-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+}
+
+.confirm-cancel{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#475569;
+
+    color:#fff;
+
+    transition:.3s;
+}
+
+.confirm-cancel:hover{
+
+    background:#64748b;
+}
+
+.confirm-restore{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#10b981;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.confirm-restore:hover{
+
+    background:#059669;
+
+    transform:translateY(-2px);
+}
+
+.confirm-delete{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#ef4444;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.confirm-delete:hover{
+
+    background:#dc2626;
+
+    transform:translateY(-2px);
+}

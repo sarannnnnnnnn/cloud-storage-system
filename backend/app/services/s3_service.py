@@ -69,3 +69,16 @@ def delete_file(file_name : str):
     )
 
     return True
+
+def generate_preview_url(file_name: str):
+
+    url = s3_client.generate_presigned_url(
+        "get_object",
+        Params={
+            "Bucket": BUCKET_NAME,
+            "Key": file_name
+        },
+        ExpiresIn=3600
+    )
+
+    return url

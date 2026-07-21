@@ -16,7 +16,7 @@
     box-shadow:
         0 10px 40px rgba(0,0,0,.35);
 
-    overflow:hidden;
+    overflow:visible;
 }
 
 /* ===========================
@@ -284,4 +284,440 @@ tbody tr:hover{
 
         min-width:700px;
     }
+}
+
+/* ===========================
+   RENAME BUTTON
+=========================== */
+
+.rename-btn{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:12px;
+
+    color:white;
+
+    margin-right:10px;
+
+    transition:.3s;
+
+    background:#f59e0b;
+}
+
+.rename-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 20px rgba(245,158,11,.35);
+}
+
+
+/* ===========================
+   RENAME MODAL
+=========================== */
+
+.rename-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+    backdrop-filter:blur(6px);
+}
+
+.rename-modal{
+
+    width:420px;
+
+    background:#131a2d;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+
+    animation:popup .25s ease;
+}
+
+.rename-modal h2{
+
+    color:white;
+
+    margin-bottom:18px;
+}
+
+.rename-modal p{
+
+    color:#94a3b8;
+
+    margin-bottom:10px;
+}
+
+.rename-modal input{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    outline:none;
+
+    padding:0 16px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.06);
+
+    color:white;
+
+    font-size:15px;
+
+    margin:18px 0;
+}
+
+.rename-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+}
+
+.cancel-btn{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#475569;
+
+    color:white;
+
+    transition:.25s;
+}
+
+.cancel-btn:hover{
+
+    background:#64748b;
+}
+
+.save-btn{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#2563eb;
+
+    color:white;
+
+    transition:.25s;
+}
+
+.save-btn:hover{
+
+    background:#1d4ed8;
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.9);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+    }
+}
+
+.preview-btn{
+
+    width:42px;
+    height:42px;
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:12px;
+
+    color:white;
+
+    margin-right:10px;
+
+    background:#10b981;
+
+    transition:.3s;
+}
+
+.preview-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 20px rgba(16,185,129,.35);
+}
+
+/* ===========================
+   PREVIEW MODAL
+=========================== */
+
+.preview-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+.preview-modal{
+
+    width:95vw;
+    height:95vh;
+
+    background:#12182d;
+
+    border-radius:20px;
+
+    display:flex;
+    flex-direction:column;
+
+    overflow:hidden;
+}
+
+.preview-header{
+
+    height:70px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 30px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    color:white;
+}
+
+.close-preview{
+
+    width:45px;
+    height:45px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    color:white;
+
+    background:#ef4444;
+}
+
+.preview-body{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:auto;
+
+    padding:20px;
+}
+
+.preview-image{
+
+    max-width:100%;
+    max-height:100%;
+
+    object-fit:contain;
+
+    border-radius:12px;
+}
+
+/* ==========================
+   CONFIRM MODAL
+========================== */
+
+.confirm-overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.75);
+
+    backdrop-filter:blur(8px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+.confirm-modal{
+
+    width:420px;
+
+    background:#131a2d;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    animation:popup .25s ease;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+}
+
+.confirm-modal h2{
+
+    color:#fff;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+}
+
+.confirm-modal p{
+
+    color:#94a3b8;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
+}
+
+.confirm-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+}
+
+.confirm-cancel{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#475569;
+
+    color:#fff;
+
+    transition:.3s;
+}
+
+.confirm-cancel:hover{
+
+    background:#64748b;
+}
+
+.confirm-restore{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#10b981;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.confirm-restore:hover{
+
+    background:#059669;
+
+    transform:translateY(-2px);
+}
+
+.confirm-delete{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#ef4444;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.confirm-delete:hover{
+
+    background:#dc2626;
+
+    transform:translateY(-2px);
 }

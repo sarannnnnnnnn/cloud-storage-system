@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   FiHome,
   FiFolder,
@@ -12,6 +13,16 @@ import {
 import "./Sidebar.css";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+
+  localStorage.removeItem("token");
+
+  navigate("/login");
+
+};
+
   const menuItems = [
     {
       name: "Dashboard",
@@ -29,10 +40,10 @@ const Sidebar = () => {
       path: "/trash",
     },
     {
-      name: "Settings",
-      icon: <FiSettings />,
-      path: "/settings",
-    },
+  name: "Profile",
+  icon: <FiSettings />,
+  path: "/profile",
+},
   ];
 
   return (
@@ -82,31 +93,12 @@ const Sidebar = () => {
 
       </nav>
 
-      {/* Storage */}
-
-      <div className="storage-card">
-
-        <div className="storage-top">
-
-          <span>Storage</span>
-
-          <span>24%</span>
-
-        </div>
-
-        <div className="storage-bar">
-
-          <div className="storage-fill"></div>
-
-        </div>
-
-        <p>2.4 GB of 10 GB Used</p>
-
-      </div>
-
       {/* Logout */}
 
-      <button className="logout-btn">
+      <button
+  className="logout-btn"
+  onClick={handleLogout}
+>
 
         <FiLogOut />
 

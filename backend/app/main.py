@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.models.notification import Notification
+from app.routes.notification import router as notification_router
 
 from app.models.file import File
 from app.models.user import User
@@ -44,6 +46,7 @@ app.include_router(auth_router)
 app.include_router(file_router)
 app.include_router(dashboard_router)
 app.include_router(profile_router)
+app.include_router(notification_router)
 
 
 logger.info("Cloud Storage API Started Successfully")

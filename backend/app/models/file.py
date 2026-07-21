@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, Column, ForeignKey
+from sqlalchemy import Integer, String, Column, ForeignKey, Boolean
 from app.database.database import Base
 
 class File(Base):
@@ -10,3 +10,5 @@ class File(Base):
     file_url = Column(String(500), nullable=False)
     file_size = Column(Integer)
     user_id = Column(Integer, ForeignKey("users.id"))
+
+    is_deleted = Column(Boolean, default=False)

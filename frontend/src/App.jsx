@@ -9,6 +9,8 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
+import Files from "./pages/Files/Files";
+import Trash from "./pages/Trash/Trash";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -21,6 +23,8 @@ function AnimatedRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/files" element={<Files />} />
+<Route path="/trash" element={<Trash />} />
       </Routes>
     </AnimatePresence>
   );

@@ -1,25 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
   FiBell,
-  FiSearch,
   FiUploadCloud,
   FiChevronDown,
   FiUser,
 } from "react-icons/fi";
 
+import api from "../../api/api";
+import Notifications from "../Notifications/Notifications";
 import UploadModal from "../UploadModal/UploadModal";
 
 import "./Topbar.css";
 
 const Topbar = ({ fetchDashboard }) => {
   const [showUpload, setShowUpload] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const navigate = useNavigate();
 
-  // Logged-in user (falls back to Saran if not stored yet)
   const user = JSON.parse(localStorage.getItem("user")) || {};
+
+  const loadNotifications = async () => {
+    try {
+      const res = await api.get("/notifications");
+
+      const unread = res.data.filter((n) => !n.is_read).length;
+
+      setNotificationCount(unread);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    loadNotifications();
+
+    const interval = setInterval(loadNotifications, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
@@ -41,19 +63,6 @@ const Topbar = ({ fetchDashboard }) => {
         {/* Right */}
         <div className="topbar-right">
 
-          {/* Search */}
-          <motion.div
-            className="search-box"
-            whileHover={{ scale: 1.02 }}
-          >
-            <FiSearch className="search-icon" />
-
-            <input
-              type="text"
-              placeholder="Search files..."
-            />
-          </motion.div>
-
           {/* Upload */}
           <motion.button
             className="upload-btn"
@@ -71,13 +80,29 @@ const Topbar = ({ fetchDashboard }) => {
           </motion.button>
 
           {/* Notification */}
-          <motion.div
-            className="icon-btn"
-            whileHover={{ scale: 1.1 }}
-          >
-            <FiBell />
-            <span className="notification-dot"></span>
-          </motion.div>
+          <div style={{ position: "relative" }}>
+            <motion.div
+              className="icon-btn"
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() =>
+                setShowNotifications(!showNotifications)
+              }
+            >
+              <FiBell />
+
+              {notificationCount > 0 && (
+                <span className="notification-dot">
+                  {notificationCount}
+                </span>
+              )}
+            </motion.div>
+
+            <Notifications
+              open={showNotifications}
+              onClose={() => setShowNotifications(false)}
+            />
+          </div>
 
           {/* Profile */}
           <motion.div

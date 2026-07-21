@@ -9,6 +9,8 @@ import {
   FiMusic,
   FiArchive,
   FiFileText,
+  FiEdit2,
+  FiEye,
 } from "react-icons/fi";
 
 import { motion } from "framer-motion";
@@ -20,6 +22,13 @@ const FilesTable = ({ fetchDashboard }) => {
   const [files, setFiles] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showRename, setShowRename] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [newName, setNewName] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [previewFile, setPreviewFile] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   useEffect(() => {
     fetchFiles();
@@ -96,18 +105,27 @@ const FilesTable = ({ fetchDashboard }) => {
   }
 };
 
-const deleteFile = async (filename) => {
-  const ok = window.confirm(`Delete "${filename}" ?`);
+const deleteFile = (file) => {
 
-  if (!ok) return;
+  setSelectedFile(file);
+
+  setConfirmOpen(true);
+
+};
+
+const confirmDelete = async () => {
 
   try {
 
     await api.delete(
-      `/delete/${encodeURIComponent(filename)}`
+      `/delete/${encodeURIComponent(selectedFile.filename)}`
     );
 
     toast.success("File deleted successfully.");
+
+    setConfirmOpen(false);
+
+    setSelectedFile(null);
 
     fetchFiles();
 
@@ -116,12 +134,66 @@ const deleteFile = async (filename) => {
     }
 
   } catch (err) {
+
     console.log(err);
+
     toast.error("Delete failed.");
+
+  }
+
+};
+
+const renameFile = async () => {
+  if (!newName.trim()) {
+    toast.error("Enter a file name.");
+    return;
+  }
+
+  try {
+    await api.patch(`/rename/${selectedFile.id}`, {
+      new_name: newName,
+    });
+
+    toast.success("File renamed successfully.");
+
+    setShowRename(false);
+
+    setNewName("");
+
+    setSelectedFile(null);
+
+    fetchFiles();
+
+    if (fetchDashboard) {
+      fetchDashboard();
+    }
+
+  } catch (err) {
+    toast.error(
+      err.response?.data?.detail || "Rename failed."
+    );
+  }
+};
+const previewFileHandler = async (filename) => {
+  try {
+
+    const res = await api.get(
+      `/preview/${encodeURIComponent(filename)}`
+    );
+
+    setPreviewUrl(res.data.preview_url);
+    setPreviewFile(filename);
+    setShowPreview(true);
+
+  } catch (err) {
+
+    console.log(err);
+    toast.error("Preview failed.");
   }
 };
 
   return (
+  <>
     <motion.div
       className="files-table"
       initial={{ opacity: 0 }}
@@ -206,7 +278,14 @@ const deleteFile = async (filename) => {
                 </td>
 
                 <td>
-
+              <button
+  className="preview-btn"
+  onClick={() =>
+    previewFileHandler(file.filename)
+  }
+>
+  <FiEye />
+</button>
                   <button
                     className="download-btn"
                     onClick={() =>
@@ -217,12 +296,21 @@ const deleteFile = async (filename) => {
                     <FiDownload />
 
                   </button>
-
+                    <button
+  className="rename-btn"
+  onClick={() => {
+    setSelectedFile(file);
+    setNewName(file.filename);
+    setShowRename(true);
+  }}
+>
+  <FiEdit2 />
+</button>
                   <button
                     className="delete-btn"
                     onClick={() =>
-                      deleteFile(file.filename)
-                    }
+  deleteFile(file)
+}
                   >
 
                     <FiTrash2 />
@@ -242,6 +330,117 @@ const deleteFile = async (filename) => {
       )}
 
     </motion.div>
+
+    {showRename && (
+  <div className="rename-overlay">
+    <div className="rename-modal">
+
+      <h2>Rename File</h2>
+
+      <p>Enter a new file name</p>
+
+      <input
+        type="text"
+        value={newName}
+        onChange={(e) => setNewName(e.target.value)}
+      />
+
+      <div className="rename-actions">
+
+        <button
+          className="cancel-btn"
+          onClick={() => {
+            setShowRename(false);
+            setSelectedFile(null);
+            setNewName("");
+          }}
+        >
+          Cancel
+        </button>
+
+        <button
+          className="save-btn"
+          onClick={renameFile}
+        >
+          Save
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+)}
+
+{showPreview && (
+  <div className="preview-overlay">
+    <div className="preview-modal">
+
+      <div className="preview-header">
+        <h2>{previewFile}</h2>
+
+        <button
+          className="close-preview"
+          onClick={() => {
+            setShowPreview(false);
+            setPreviewUrl("");
+            setPreviewFile("");
+          }}
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="preview-body">
+        <img
+          src={previewUrl}
+          alt={previewFile}
+          className="preview-image"
+        />
+      </div>
+
+    </div>
+
+
+  </div>
+)}
+
+{confirmOpen && (
+  <div className="confirm-overlay">
+
+    <div className="confirm-modal">
+
+      <h2>Move to Trash</h2>
+
+      <p>
+        Move "{selectedFile.filename}" to Trash?
+      </p>
+
+      <div className="confirm-actions">
+
+        <button
+          className="confirm-cancel"
+          onClick={()=>{
+            setConfirmOpen(false);
+            setSelectedFile(null);
+          }}
+        >
+          Cancel
+        </button>
+
+        <button
+          className="confirm-delete"
+          onClick={confirmDelete}
+        >
+          Move
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
+</>
   );
 };
 

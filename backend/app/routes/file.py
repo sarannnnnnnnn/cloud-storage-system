@@ -14,11 +14,14 @@ from sqlalchemy.orm import Session
 from app.database.database import get_db
 from app.models.user import User
 from app.models.file import File as FileModel
+from app.models.notification import Notification
 from app.utils.jwt_handler import verify_access_token
+from app.schemas.file_schema import RenameFileRequest
 
 from app.services.s3_service import (
     upload_file,
     generate_download_url,
+    generate_preview_url,
     delete_file
 )
 
@@ -112,10 +115,17 @@ async def upload(
     file_size=file_size,
     user_id=db_user.id
 )
-
+    
     db.add(new_file)
 
-    # Update user's used storage
+    notification = Notification(
+    user_id=db_user.id,
+    message=f"Uploaded '{file.filename}'",
+    type="upload"
+)
+
+    db.add(notification)
+
     db_user.storage_used += file_size
 
     db.commit()
@@ -182,6 +192,57 @@ async def download(
 
 
 # -------------------------------
+# Preview File
+# -------------------------------
+@router.get("/preview/{file_name:path}")
+async def preview(
+    file_name: str,
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+
+    token = credentials.credentials
+
+    payload = verify_access_token(token)
+
+    if payload is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
+
+    email = payload["sub"]
+
+    db_user = db.query(User).filter(
+        User.email == email
+    ).first()
+
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    db_file = db.query(FileModel).filter(
+        FileModel.filename == file_name,
+        FileModel.user_id == db_user.id
+    ).first()
+
+    if db_file is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
+
+    preview_url = generate_preview_url(
+        db_file.stored_filename
+    )
+
+    return {
+        "preview_url": preview_url
+    }
+
+# -------------------------------
 # Show Logged-in User Files
 # -------------------------------
 @router.get("/files")
@@ -211,14 +272,176 @@ async def get_files(
         }
 
     user_files = db.query(FileModel).filter(
-        FileModel.user_id == db_user.id
-    ).all()
+    FileModel.user_id == db_user.id,
+    FileModel.is_deleted == False
+).all()
 
     return user_files
 
+# -------------------------------
+# Get Trash Files
+# -------------------------------
+@router.get("/trash")
+async def get_trash(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+
+    token = credentials.credentials
+
+    payload = verify_access_token(token)
+
+    if payload is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
+
+    email = payload["sub"]
+
+    db_user = db.query(User).filter(
+        User.email == email
+    ).first()
+
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    trash_files = db.query(FileModel).filter(
+        FileModel.user_id == db_user.id,
+        FileModel.is_deleted == True
+    ).all()
+
+    return trash_files
 
 # -------------------------------
-# Delete File
+# Restore File
+# -------------------------------
+@router.patch("/restore/{file_id}")
+async def restore_file(
+    file_id: int,
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+
+    token = credentials.credentials
+
+    payload = verify_access_token(token)
+
+    if payload is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
+
+    email = payload["sub"]
+
+    db_user = db.query(User).filter(
+        User.email == email
+    ).first()
+
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    db_file = db.query(FileModel).filter(
+        FileModel.id == file_id,
+        FileModel.user_id == db_user.id
+    ).first()
+
+    if db_file is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
+
+    db_file.is_deleted = False
+
+    notification = Notification(
+    user_id=db_user.id,
+    message=f"Restored '{db_file.filename}'",
+    type="restore"
+)
+
+    db.add(notification)
+
+    db.commit()
+
+    return {
+        "message": "File restored successfully"
+    }
+
+# -------------------------------
+# Delete Permanently
+# -------------------------------
+@router.delete("/delete-permanent/{file_id}")
+async def delete_permanent(
+    file_id: int,
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+
+    token = credentials.credentials
+
+    payload = verify_access_token(token)
+
+    if payload is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
+
+    email = payload["sub"]
+
+    db_user = db.query(User).filter(
+        User.email == email
+    ).first()
+
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    db_file = db.query(FileModel).filter(
+        FileModel.id == file_id,
+        FileModel.user_id == db_user.id
+    ).first()
+
+    if db_file is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
+
+    delete_file(db_file.stored_filename)
+
+    db_user.storage_used -= db_file.file_size
+
+    filename = db_file.filename
+
+    db.delete(db_file)
+
+    notification = Notification(
+    user_id=db_user.id,
+    message=f"Permanently deleted '{filename}'",
+    type="delete"
+)
+
+    db.add(notification)
+
+    db.commit()
+
+    return {
+        "message": "File permanently deleted"
+    }
+
+# -------------------------------
+# Move File to Trash
 # -------------------------------
 @router.delete("/delete/{file_name:path}")
 async def delete(
@@ -232,9 +455,10 @@ async def delete(
     payload = verify_access_token(token)
 
     if payload is None:
-        return {
-            "message": "Invalid Token"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
 
     email = payload["sub"]
 
@@ -243,9 +467,10 @@ async def delete(
     ).first()
 
     if db_user is None:
-        return {
-            "message": "User not found"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
 
     db_file = db.query(FileModel).filter(
         FileModel.filename == file_name,
@@ -253,20 +478,100 @@ async def delete(
     ).first()
 
     if db_file is None:
-        return {
-            "message": "File not found or access denied"
-        }
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
 
-    # Delete from AWS
-    delete_file(db_file.stored_filename)
+    db_file.is_deleted = True
 
-    # Reduce user's used storage
-    db_user.storage_used -= db_file.file_size
+    notification = Notification(
+    user_id=db_user.id,
+    message=f"Moved '{db_file.filename}' to Trash",
+    type="trash"
+)
 
-    # Delete metadata
-    db.delete(db_file)
+    db.add(notification)
+
     db.commit()
 
     return {
-        "message": "File deleted successfully"
+        "message": "File moved to Trash"
+    }
+
+# -------------------------------
+# Rename File
+# -------------------------------
+@router.patch("/rename/{file_id}")
+async def rename_file(
+    file_id: int,
+    data: RenameFileRequest,
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db)
+):
+
+    token = credentials.credentials
+
+    payload = verify_access_token(token)
+
+    if payload is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid Token"
+        )
+
+    email = payload["sub"]
+
+    db_user = db.query(User).filter(
+        User.email == email
+    ).first()
+
+    if db_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+
+    db_file = db.query(FileModel).filter(
+        FileModel.id == file_id,
+        FileModel.user_id == db_user.id
+    ).first()
+
+    if db_file is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
+
+    # Prevent duplicate filenames for this user
+    existing = db.query(FileModel).filter(
+        FileModel.user_id == db_user.id,
+        FileModel.filename == data.new_name,
+        FileModel.id != file_id
+    ).first()
+
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A file with this name already exists."
+        )
+
+    old_name = db_file.filename
+
+    db_file.filename = data.new_name
+
+    notification = Notification(
+    user_id=db_user.id,
+    message=f"Renamed '{old_name}' to '{data.new_name}'",
+    type="rename"
+)
+
+    db.add(notification)
+
+    db.commit()
+    db.refresh(db_file)
+
+    return {
+        "message": "File renamed successfully",
+        "file": db_file
     }

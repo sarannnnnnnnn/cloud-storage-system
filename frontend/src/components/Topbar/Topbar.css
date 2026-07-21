@@ -233,23 +233,36 @@
 
 .notification-dot{
 
-    width:10px;
+position:absolute;
 
-    height:10px;
+top:-6px;
 
-    border-radius:50%;
+right:-6px;
 
-    position:absolute;
+width:22px;
 
-    top:12px;
+height:22px;
 
-    right:12px;
+border-radius:50%;
 
-    background:#ff4d6d;
+background:#ef4444;
 
-    box-shadow:
+display:flex;
 
-    0 0 10px #ff4d6d;
+justify-content:center;
+
+align-items:center;
+
+color:white;
+
+font-size:11px;
+
+font-weight:700;
+
+box-shadow:0 0 12px rgba(239,68,68,.7);
+
+border:2px solid #141c2f;
+
 }
 
 /* ===========================
