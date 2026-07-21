@@ -9,6 +9,7 @@ from app.database.database import engine, Base
 from app.routes.auth import router as auth_router
 from app.routes.file import router as file_router
 from app.routes.dashboard import router as dashboard_router
+from app.routes.profile import router as profile_router
 
 from app.config.settings import APP_NAME, APP_VERSION, DEBUG
 from app.config.logger import logger
@@ -42,6 +43,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(file_router)
 app.include_router(dashboard_router)
+app.include_router(profile_router)
 
 
 logger.info("Cloud Storage API Started Successfully")

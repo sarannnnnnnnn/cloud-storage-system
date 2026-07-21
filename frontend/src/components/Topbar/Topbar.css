@@ -26,6 +26,8 @@
         inset 0 1px 0 rgba(255,255,255,.04);
 
     margin-bottom: 30px;
+    position: relative;
+    z-index: 1000;
 }
 
 /* ===========================
@@ -284,17 +286,35 @@
     0 0 20px rgba(37,99,235,.25);
 }
 
-.profile-box img{
+.profile-icon{
 
     width:48px;
-
     height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
     border-radius:50%;
 
-    object-fit:cover;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f7cff
+    );
+
+    color:white;
+
+    font-size:22px;
 
     border:2px solid rgba(255,255,255,.15);
+
+    flex-shrink:0;
+}
+
+.profile-icon svg{
+
+    font-size:22px;
 }
 
 .profile-info{
@@ -379,3 +399,4 @@
         justify-content:center;
     }
 }
+
