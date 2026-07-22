@@ -166,41 +166,73 @@
    RESPONSIVE
 =========================== */
 
-@media (max-width: 1200px) {
+@media (max-width:1400px){
 
-    .stats-grid {
-
-        grid-template-columns: 1fr;
+    .dashboard-content{
+        padding:25px;
     }
+
 }
 
-@media (max-width: 992px) {
+@media (max-width:1200px){
 
-    .dashboard-content {
-
-        margin-left: 0;
-
-        padding: 20px;
+    .stats-grid{
+        grid-template-columns:1fr;
+        gap:20px;
     }
+
 }
 
-@media (max-width: 768px) {
+@media (max-width:992px){
 
-    .dashboard-content {
-
-        padding: 18px;
+    .dashboard{
+        flex-direction:column;
     }
 
-    .stats-grid {
+    .dashboard-content{
 
-        gap: 18px;
+        margin-left:90px;
+
+        padding:20px;
     }
+
 }
 
-@media (max-width: 480px) {
+@media (max-width:768px){
 
-    .dashboard-content {
+.dashboard{
 
-        padding: 15px;
+display:block;
+
+}
+
+.dashboard-content{
+
+margin-left:0;
+
+padding:12px;
+
+width:100%;
+
+}
+
+.stats-grid{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+}
+
+@media (max-width:480px){
+
+    .dashboard-content{
+
+        padding:12px;
     }
+
 }

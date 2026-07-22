@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import {
   FiHome,
   FiFolder,
@@ -15,13 +15,12 @@ import "./Sidebar.css";
 const Sidebar = () => {
   const navigate = useNavigate();
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const handleLogout = () => {
-
-  localStorage.removeItem("token");
-
-  navigate("/login");
-
-};
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   const menuItems = [
     {
@@ -40,73 +39,83 @@ const Sidebar = () => {
       path: "/trash",
     },
     {
-  name: "Profile",
-  icon: <FiSettings />,
-  path: "/profile",
-},
+      name: "Profile",
+      icon: <FiSettings />,
+      path: "/profile",
+    },
   ];
 
+  useEffect(() => {
+    const handleOpen = () => setMobileOpen(true);
+
+    window.addEventListener("openSidebar", handleOpen);
+
+    return () => {
+      window.removeEventListener("openSidebar", handleOpen);
+    };
+  }, []);
+
   return (
-    <motion.aside
-      className="sidebar"
-      initial={{ x: -80, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* Logo */}
+    <>
+      {/* Overlay */}
 
-      <div className="sidebar-logo">
+      <div
+        className={`sidebar-overlay ${mobileOpen ? "show" : ""}`}
+        onClick={() => setMobileOpen(false)}
+      />
 
-        <div className="logo-circle">
+      <motion.aside
+        className={`sidebar ${mobileOpen ? "show" : ""}`}
+        initial={{ x: -80, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {/* Logo */}
 
-          <FiHardDrive />
+        <div className="sidebar-logo">
+          <div className="logo-circle">
+            <FiHardDrive />
+          </div>
 
+          <div>
+            <h2>CloudBox</h2>
+            <span>Cloud Storage</span>
+          </div>
         </div>
 
-        <div>
+        {/* Menu */}
 
-          <h2>CloudBox</h2>
+        <nav className="sidebar-menu">
+          {menuItems.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.path}
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }) =>
+                isActive ? "menu-item active" : "menu-item"
+              }
+            >
+              <span className="menu-icon">{item.icon}</span>
 
-          <span>Cloud Storage</span>
+              <span>{item.name}</span>
+            </NavLink>
+          ))}
+        </nav>
 
-        </div>
+        {/* Logout */}
 
-      </div>
-
-      {/* Navigation */}
-
-      <nav className="sidebar-menu">
-
-        {menuItems.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.path}
-            className={({ isActive }) =>
-              isActive ? "menu-item active" : "menu-item"
-            }
-          >
-            <span className="menu-icon">{item.icon}</span>
-
-            <span>{item.name}</span>
-          </NavLink>
-        ))}
-
-      </nav>
-
-      {/* Logout */}
-
-      <button
-  className="logout-btn"
-  onClick={handleLogout}
->
-
-        <FiLogOut />
-
-        Logout
-
-      </button>
-
-    </motion.aside>
+        <button
+          className="logout-btn"
+          onClick={() => {
+            setMobileOpen(false);
+            handleLogout();
+          }}
+        >
+          <FiLogOut />
+          Logout
+        </button>
+      </motion.aside>
+    </>
   );
 };
 

@@ -8,8 +8,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Topbar from "../../components/Topbar/Topbar";
 import Welcome from "../../components/Welcome/Welcome";
 import StorageCard from "../../components/StorageCard/StorageCard";
-import StorageProgress from "../../components/StorageProgress/StorageProgress";
-import RecentUploads from "../../components/RecentUploads/RecentUploads";
+
 
 const Dashboard = () => {
   const [dashboard, setDashboard] = useState(null);
@@ -49,10 +48,6 @@ const Dashboard = () => {
           <FilesCard dashboard={dashboard} />
 
         </div>
-
-        <StorageProgress dashboard={dashboard} />
-
-        <RecentUploads dashboard={dashboard} />
 
 <FilesTable fetchDashboard={fetchDashboard} />
 

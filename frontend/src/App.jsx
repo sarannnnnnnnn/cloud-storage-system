@@ -24,7 +24,7 @@ function AnimatedRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/files" element={<Files />} />
-<Route path="/trash" element={<Trash />} />
+        <Route path="/trash" element={<Trash />} />
       </Routes>
     </AnimatePresence>
   );

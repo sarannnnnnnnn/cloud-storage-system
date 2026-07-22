@@ -6,6 +6,7 @@ import {
   FiUploadCloud,
   FiChevronDown,
   FiUser,
+  FiMenu,
 } from "react-icons/fi";
 
 import api from "../../api/api";
@@ -22,6 +23,9 @@ const Topbar = ({ fetchDashboard }) => {
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user")) || {};
+  const openSidebar = () => {
+  window.dispatchEvent(new Event("openSidebar"));
+};
 
   const loadNotifications = async () => {
     try {
@@ -53,6 +57,15 @@ const Topbar = ({ fetchDashboard }) => {
       >
         {/* Left */}
         <div className="topbar-left">
+
+<button
+className="mobile-menu-btn"
+onClick={openSidebar}
+>
+
+<FiMenu />
+
+</button>
           <h2 className="page-title">Dashboard</h2>
 
           <p className="page-subtitle">
