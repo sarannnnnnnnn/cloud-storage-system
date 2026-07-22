@@ -38,7 +38,7 @@ function Navbar() {
 
         <FaCloud className="landing-logo-icon" />
 
-        <h2>Cloud Storage</h2>
+        <h2>Cloud Box</h2>
 
       </div>
 

@@ -22,7 +22,7 @@ function Footer() {
             <FaCloud />
           </div>
 
-          <h2>Cloud Storage</h2>
+          <h2>Cloud Box</h2>
 
           <p>
             Securely upload, manage and access your files from
