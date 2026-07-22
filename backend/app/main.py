@@ -34,6 +34,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
+        "https://cloud-box-ten.vercel.app",
+        "https://cloud-nvm7rj1ns-sarann.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
