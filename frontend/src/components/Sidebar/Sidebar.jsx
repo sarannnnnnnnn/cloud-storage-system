@@ -16,6 +16,18 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -60,15 +72,15 @@ const Sidebar = () => {
       {/* Overlay */}
 
       <div
-        className={`sidebar-overlay ${mobileOpen ? "show" : ""}`}
+        className={`sidebar-overlay ${mobileOpen && isMobile ? "show" : ""}`}
         onClick={() => setMobileOpen(false)}
       />
 
       <motion.aside
-        className={`sidebar ${mobileOpen ? "show" : ""}`}
-        initial={{ x: -80, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        className={`sidebar ${mobileOpen && isMobile ? "show" : ""}`}
+        initial={false}
+        animate={isMobile ? (mobileOpen ? { x: 0, opacity: 1 } : { x: -320, opacity: 0 }) : { x: 0, opacity: 1 }}
+        transition={{ duration: 0.28, ease: "easeOut" }}
       >
         {/* Logo */}
 

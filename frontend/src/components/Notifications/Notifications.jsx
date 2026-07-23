@@ -10,6 +10,7 @@ import {
   FiEdit2,
   FiXCircle,
   FiAlertTriangle,
+  FiX,
 } from "react-icons/fi";
 
 import api from "../../api/api";
@@ -76,24 +77,40 @@ export default function Notifications({ open, onClose }) {
     <>
       <AnimatePresence>
         <motion.div
-          ref={boxRef}
-          className="notify-box"
-          initial={{ opacity: 0, y: -15 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -15 }}
+          className="notify-modal-bg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
         >
-          <div className="notify-header">
-            <h3>Notifications</h3>
-
-            {notifications.length > 0 && (
-              <button
-                onClick={() => setShowClear(true)}
-                className="clear-all"
-              >
-                Clear All
-              </button>
-            )}
-          </div>
+          <motion.div
+            ref={boxRef}
+            className="notify-box-modal"
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            transition={{ duration: 0.25 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="notify-header">
+              <h3>Notifications</h3>
+              <div className="notify-header-actions">
+                {notifications.length > 0 && (
+                  <button
+                    onClick={() => setShowClear(true)}
+                    className="clear-all"
+                  >
+                    Clear All
+                  </button>
+                )}
+                <button
+                  className="close-notify"
+                  onClick={onClose}
+                >
+                  <FiX />
+                </button>
+              </div>
+            </div>
 
           <div className="notify-list">
             {notifications.length === 0 ? (
@@ -114,9 +131,7 @@ export default function Notifications({ open, onClose }) {
                     <h4>{item.message}</h4>
 
                     <span>
-                      {new Date(
-                        item.created_at
-                      ).toLocaleString()}
+                      {new Date(item.created_at).toLocaleString()}
                     </span>
                   </div>
 
@@ -128,6 +143,7 @@ export default function Notifications({ open, onClose }) {
             )}
           </div>
         </motion.div>
+      </motion.div>
       </AnimatePresence>
 
       <AnimatePresence>

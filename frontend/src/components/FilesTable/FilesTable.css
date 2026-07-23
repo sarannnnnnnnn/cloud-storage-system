@@ -3,6 +3,7 @@
 =========================== */
 
 .files-table{
+    width:100%;
     margin-top:30px;
     padding:28px;
     border-radius:22px;
@@ -16,7 +17,15 @@
     box-shadow:
         0 10px 40px rgba(0,0,0,.35);
 
-    overflow:visible;
+    overflow:hidden;
+}
+
+.table-header{
+    width:100%;
+}
+
+.search-box-table{
+    max-width:320px;
 }
 
 /* ===========================
@@ -278,11 +287,265 @@ tbody tr:hover{
     .files-table{
 
         overflow-x:auto;
+        padding:22px;
     }
 
     table{
 
         min-width:700px;
+    }
+}
+
+@media(max-width:700px){
+
+    .files-table{
+        padding:18px;
+        margin:20px auto 0;
+        width:calc(100% - 24px);
+        max-width:100%;
+    }
+
+    .table-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:14px;
+    }
+
+    .table-header h2{
+        width:100%;
+        margin:0;
+    }
+
+    .search-box-table{
+        width:100%;
+        max-width:100%;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr{
+        display:block;
+    }
+
+    thead{
+        display:none;
+    }
+
+    tr{
+        margin-bottom:16px;
+        border-radius:20px;
+        background:rgba(255,255,255,.04);
+        border:1px solid rgba(255,255,255,.08);
+        overflow:hidden;
+    }
+
+    td{
+        padding:12px 10px;
+        border:none;
+        display:flex;
+        flex-wrap:wrap;
+        align-items:center;
+        justify-content:flex-start;
+        gap:10px;
+    }
+
+    td:nth-child(1){
+        flex-direction:column;
+        align-items:flex-start;
+        width:100%;
+    }
+
+    td:nth-child(2),
+    td:nth-child(3){
+        width:100%;
+        justify-content:flex-start;
+    }
+
+    td:nth-child(3){
+        gap:10px;
+        margin-top:8px;
+    }
+
+    .file-name{
+        width:100%;
+        flex:1 1 100%;
+        white-space:normal;
+        overflow-wrap:anywhere;
+    }
+
+    .file-name span,
+    .file-name{
+        max-width:100%;
+    }
+
+    .preview-btn,
+    .rename-btn,
+    .download-btn,
+    .delete-btn{
+        width:42px;
+        height:42px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+}
+
+.preview-btn,
+.rename-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    cursor:pointer;
+    border-radius:12px;
+    color:white;
+    margin-right:10px;
+    transition:.3s;
+    background:#0ea5e9;
+}
+
+.preview-btn:hover,
+.rename-btn:hover,
+.download-btn:hover,
+.delete-btn:hover{
+    transform:translateY(-2px);
+}
+
+.rename-btn{
+    background:#6366f1;
+}
+
+.rename-overlay,
+.preview-overlay,
+.confirm-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:16px;
+}
+
+.rename-modal,
+.preview-modal,
+.confirm-modal{
+    width:min(520px,100%);
+    max-height:calc(100vh - 80px);
+    padding:24px;
+    border-radius:24px;
+    background:rgba(15,23,42,.96);
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    overflow:auto;
+}
+
+.rename-modal h2,
+.preview-header h2,
+.confirm-modal h2{
+    color:white;
+    margin-bottom:12px;
+}
+
+.rename-modal p,
+.confirm-modal p{
+    color:#cbd5e1;
+    margin-bottom:20px;
+}
+
+.rename-modal input{
+    width:100%;
+    padding:14px 16px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.04);
+    color:white;
+    margin-bottom:20px;
+}
+
+.rename-actions,
+.confirm-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.cancel-btn,
+.confirm-cancel{
+    padding:12px 18px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.18);
+    background:transparent;
+    color:white;
+    cursor:pointer;
+}
+
+.save-btn,
+.confirm-delete{
+    padding:12px 18px;
+    border-radius:14px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.close-preview{
+    border:none;
+    background:transparent;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.preview-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:18px;
+}
+
+.preview-body{
+    display:flex;
+    justify-content:center;
+}
+
+.preview-image{
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:18px;
+}
+
+@media(max-width:520px){
+    .search-box-table{
+        padding:12px 14px;
+    }
+
+    .file-icon{
+        width:36px;
+        height:36px;
+    }
+
+    .download-btn,
+    .delete-btn,
+    .preview-btn,
+    .rename-btn{
+        width:38px;
+        height:38px;
+        margin-right:8px;
+    }
+
+    .cancel-btn,
+    .save-btn,
+    .confirm-cancel,
+    .confirm-delete{
+        width:100%;
+        justify-content:center;
     }
 }
 

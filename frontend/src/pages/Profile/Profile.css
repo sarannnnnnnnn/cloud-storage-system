@@ -46,6 +46,15 @@
     animation: fadeUp .6s ease;
 }
 
+.profile-card h2{
+    margin-top:25px;
+    margin-bottom:35px;
+    text-align:center;
+    color:white;
+    font-size:32px;
+    font-weight:700;
+}
+
 @keyframes fadeUp{
 
     from{
@@ -88,20 +97,6 @@
 
     box-shadow:
         0 10px 35px rgba(37,99,235,.35);
-}
-
-.profile-card h2{
-
-    margin-top:25px;
-    margin-bottom:35px;
-
-    text-align:center;
-
-    color:white;
-
-    font-size:32px;
-
-    font-weight:700;
 }
 
 /* ===========================

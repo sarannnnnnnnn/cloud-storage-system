@@ -3,6 +3,7 @@
 =========================== */
 
 .topbar {
+    position: relative;
     width: 100%;
     min-height: 90px;
 
@@ -27,7 +28,7 @@
 
     margin-bottom: 30px;
     position: relative;
-    z-index: 1000;
+    z-index: 2;
 }
 
 /* ===========================
@@ -410,76 +411,96 @@ padding:12px 18px;
 
 @media(max-width:768px){
 
-.page-title{
+    .topbar{
+        position:relative;
+        flex-direction:column;
+        align-items:stretch;
+        padding:16px 14px;
+        min-height:auto;
+        gap:14px;
+    }
 
-font-size:24px;
+    .mobile-menu-btn{
+        display:flex !important;
+        position:absolute;
+        top:12px;
+        left:12px;
+        margin-bottom:0;
+        z-index:30;
+        width:52px;
+        height:52px;
+        background:rgba(255,255,255,.14);
+        border:1px solid rgba(255,255,255,.22);
+        box-shadow:0 16px 40px rgba(0,0,0,.28);
+        color:#fff;
+        transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+    }
 
-}
+    .mobile-menu-btn:hover{
+        transform:translateY(-1px);
+        background:rgba(255,255,255,.24);
+    }
 
-.page-subtitle{
+    .topbar-left,
+    .topbar-right{
+        width:100%;
+    }
 
-font-size:13px;
+    .topbar-left{
+        padding-left:64px;
+    }
 
-}
+    .page-title{
+        font-size:24px;
+    }
 
-.topbar-right{
+    .page-subtitle{
+        font-size:13px;
+    }
 
-flex-direction:column;
+    .topbar-right{
+        display:flex;
+        flex-direction:column;
+        align-items:stretch;
+        gap:14px;
+    }
 
-align-items:stretch;
+    .upload-btn,
+    .profile-box,
+    .icon-btn{
+        width:100%;
+    }
 
-}
+    .upload-btn{
+        padding:14px 0;
+    }
 
-.upload-btn{
+    .profile-box{
+        justify-content:flex-start;
+    }
 
-width:100%;
-
-}
-
-.icon-btn{
-
-width:100%;
-
-height:52px;
-
-}
-
-.profile-box{
-
-width:100%;
-
-justify-content:flex-start;
-
-}
-
+    .icon-btn{
+        height:52px;
+    }
 }
 
 @media(max-width:480px){
 
-.topbar{
+    .topbar{
+        padding:15px 12px;
+    }
 
-padding:15px;
+    .page-title{
+        font-size:20px;
+    }
 
-}
+    .profile-info h4{
+        font-size:14px;
+    }
 
-.page-title{
-
-font-size:20px;
-
-}
-
-.profile-info h4{
-
-font-size:14px;
-
-}
-
-.profile-info span{
-
-font-size:12px;
-
-}
-
+    .profile-info span{
+        font-size:12px;
+    }
 }
 
 /* ===========================
@@ -522,51 +543,3 @@ background:#2563eb;
 
 }
 
-@media(max-width:768px){
-
-.mobile-menu-btn{
-
-display:flex;
-
-margin-bottom:18px;
-
-}
-
-}
-
-@media(max-width:768px){
-
-.topbar{
-
-flex-direction:column;
-
-align-items:stretch;
-
-padding:18px;
-
-}
-
-.topbar-right{
-
-display:flex;
-
-flex-direction:column;
-
-gap:12px;
-
-}
-
-.upload-btn,
-.profile-box{
-
-width:100%;
-
-}
-
-.icon-btn{
-
-width:100%;
-
-}
-
-}

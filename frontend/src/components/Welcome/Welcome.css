@@ -367,9 +367,15 @@
         text-align:center;
     }
 
+    .welcome-left,
+    .welcome-right{
+        width:100%;
+    }
+
     .welcome-right{
 
         width:100%;
+        margin-top:25px;
     }
 
     .welcome-stats{
@@ -382,12 +388,28 @@
 
     .welcome{
 
+        flex-direction:column;
+        align-items:flex-start;
         padding:25px;
     }
 
     .welcome h1{
 
         font-size:32px;
+    }
+
+    .welcome p{
+        max-width:100%;
+    }
+
+    .welcome-left,
+    .welcome-right{
+        width:100%;
+    }
+
+    .welcome-right{
+        margin-top:24px;
+        align-items:center;
     }
 
     .mini-card{
@@ -398,5 +420,9 @@
     .welcome-right img{
 
         width:140px;
+    }
+
+    .storage-box{
+        max-width:100%;
     }
 }

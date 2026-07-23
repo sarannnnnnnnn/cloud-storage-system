@@ -10,6 +10,7 @@ import Register from "./pages/Register/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
 import Files from "./pages/Files/Files";
+import Notifications from "./pages/Notifications/Notifications";
 import Trash from "./pages/Trash/Trash";
 
 function AnimatedRoutes() {
@@ -24,6 +25,7 @@ function AnimatedRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/files" element={<Files />} />
+        <Route path="/notifications" element={<Notifications />} />
         <Route path="/trash" element={<Trash />} />
       </Routes>
     </AnimatePresence>

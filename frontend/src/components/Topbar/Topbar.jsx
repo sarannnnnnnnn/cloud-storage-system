@@ -10,7 +10,6 @@ import {
 } from "react-icons/fi";
 
 import api from "../../api/api";
-import Notifications from "../Notifications/Notifications";
 import UploadModal from "../UploadModal/UploadModal";
 
 import "./Topbar.css";
@@ -98,9 +97,7 @@ onClick={openSidebar}
               className="icon-btn"
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() =>
-                setShowNotifications(!showNotifications)
-              }
+              onClick={() => navigate("/notifications")}
             >
               <FiBell />
 
@@ -110,11 +107,6 @@ onClick={openSidebar}
                 </span>
               )}
             </motion.div>
-
-            <Notifications
-              open={showNotifications}
-              onClose={() => setShowNotifications(false)}
-            />
           </div>
 
           {/* Profile */}
