@@ -430,34 +430,113 @@ justify-content:center;
 
 .landing-hero{
 
-padding:150px 30px 80px;
+padding:140px 20px 70px;
+
+grid-template-columns:1fr;
+
+gap:40px;
+
+}
+
+.landing-hero-left{
+
+text-align:center;
 
 }
 
 .landing-hero-left h1{
 
-font-size:48px;
+font-size:42px;
+
+line-height:1.1;
+
+}
+
+.landing-hero-left p{
+
+font-size:17px;
+
+line-height:1.8;
+
+margin:0 auto 30px;
+
+}
+
+.landing-hero-right{
+
+justify-content:center;
 
 }
 
 .landing-dashboard-card{
 
-width:100%;
+width:min(100%, 420px);
+
+padding:28px;
+
+}
+
+.landing-dashboard-card h2{
+
+font-size:28px;
+
+}
+
+.landing-dashboard-card p{
+
+font-size:17px;
 
 }
 
 .landing-hero-buttons{
 
-flex-direction:column;
-
-align-items:center;
+justify-content:center;
 
 }
 
-.landing-primary-btn,
-.landing-secondary-btn{
+.landing-primary-btn{
 
-width:220px;
+width:100%;
+
+max-width:220px;
+
+height:54px;
+
+font-size:16px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.landing-hero{
+
+padding:130px 16px 60px;
+
+}
+
+.landing-hero-left h1{
+
+font-size:34px;
+
+}
+
+.landing-hero-left p{
+
+font-size:15px;
+
+}
+
+.landing-dashboard-card{
+
+padding:22px;
+
+}
+
+.landing-file{
+
+font-size:15px;
 
 }
 

@@ -140,19 +140,47 @@ grid-template-columns:repeat(2,1fr);
 
 .landing-features{
 
-padding:90px 30px;
+padding:90px 20px;
 
 }
 
 .landing-features h2{
 
-font-size:38px;
+font-size:34px;
+
+}
+
+.landing-features-subtitle{
+
+font-size:17px;
+
+margin-bottom:48px;
 
 }
 
 .landing-features-grid{
 
 grid-template-columns:1fr;
+
+gap:20px;
+
+}
+
+.landing-feature-card{
+
+padding:28px 22px;
+
+}
+
+.landing-feature-card h3{
+
+font-size:22px;
+
+}
+
+.landing-feature-card p{
+
+font-size:15px;
 
 }
 
