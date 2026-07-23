@@ -18,7 +18,6 @@ const scrollToSection = (id) => {
 
   const offsets = {
     features: -50,
-    preview: -30,
     about: -30,
   };
 
@@ -62,16 +61,6 @@ function Navbar() {
   }}
 >
   Features
-</a>
-
-        <a
-  href="#preview"
-  onClick={(e) => {
-    e.preventDefault();
-    scrollToSection("preview");
-  }}
->
-  Preview
 </a>
 
         <a
